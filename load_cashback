@@ -1,0 +1,29 @@
+CREATE OR REPLACE FILE FORMAT my_csv_format
+TYPE = 'CSV'
+ENCODING = 'UTF8'  -- Explicitly set encoding to UTF-8
+FIELD_DELIMITER = ';'           -- Sets semicolon as the field separator
+FIELD_OPTIONALLY_ENCLOSED_BY = '"'
+SKIP_HEADER = 1;                 -- Skips the first row if it contains headers
+
+
+CREATE TABLE tb_cashback (
+TRA_ID_CONTAORI int
+,CVIA_DS_CICLOVIDAABER string
+,UNFE_SG_UF string
+,UNFE_SG_REGIONAL string
+,PRBS_FX_LIM string
+,DS_FAIXA_OCUPACAO string
+, FG_APTO int
+,FG_CONSENTIMENTO string
+);
+
+
+list @my_stage;
+
+COPY INTO tb_cashback
+FROM @my_stage/base/cashback/Base_Cashback_ATC_4256.csvDB_COMPANY.PUBLIC.MY_STAGEDB_COMPANY.PUBLIC.MY_STAGE
+FILE_FORMAT = (FORMAT_NAME = 'my_csv_format')
+ON_ERROR = 'CONTINUE' ; -- Optional: specifies how to handle errors
+
+select * from tb_cashback;
+select count(1) as qtd from tb_cashback;
