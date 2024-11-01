@@ -9,3 +9,17 @@ FROM
 WHERE 
     status = 'QUEUED'  -- Status 'QUEUED' indicates the query is waiting
     AND start_time >= DATEADD('hour', -1, CURRENT_TIMESTAMP);  -- Example filter for recent queries
+
+-- Querying WAREHOUSE_MONITORING_HISTORY for More Details
+SELECT
+    warehouse_name,
+    total_running,
+    average_running,
+    period_start,
+    period_end
+FROM 
+    SNOWFLAKE.ACCOUNT_USAGE.WAREHOUSE_MONITORING_HISTORY
+WHERE 
+    period_start >= DATEADD('hour', -1, CURRENT_TIMESTAMP);  -- Customize timeframe as needed
+--total_running shows the number of clusters that were running during each time period.
+--average_running gives the average number of running clusters within the selected period.
