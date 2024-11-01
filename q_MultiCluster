@@ -1,0 +1,9 @@
+--Create a New Multi-Cluster Warehouse
+CREATE WAREHOUSE my_warehouse
+WITH
+   WAREHOUSE_SIZE = 'LARGE'  -- Warehouse size (e.g., SMALL, MEDIUM, LARGE)
+   MIN_CLUSTER_COUNT = 1     -- Minimum number of clusters
+   MAX_CLUSTER_COUNT = 5     -- Maximum number of clusters
+   AUTO_SUSPEND = 300        -- Suspend after 5 minutes of inactivity
+   AUTO_RESUME = TRUE        -- Automatically resume when a query is submitted
+   SCALING_POLICY = 'STANDARD'; -- Standard scaling policy
