@@ -1,0 +1,11 @@
+SELECT 
+    query_id,
+    status,
+    user_name,
+    start_time,
+    end_time
+FROM 
+    TABLE(INFORMATION_SCHEMA.QUERY_HISTORY())
+WHERE 
+    status = 'QUEUED'  -- Status 'QUEUED' indicates the query is waiting
+    AND start_time >= DATEADD('hour', -1, CURRENT_TIMESTAMP);  -- Example filter for recent queries
